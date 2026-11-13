@@ -1,0 +1,74 @@
+{
+  "nodes": [
+    "S",
+    "North",
+    "South",
+    "Mill",
+    "Dock",
+    "T"
+  ],
+  "edges": [
+    {
+      "id": "sn",
+      "from": "S",
+      "to": "North",
+      "capacity": 16
+    },
+    {
+      "id": "ss",
+      "from": "S",
+      "to": "South",
+      "capacity": 13
+    },
+    {
+      "id": "ns",
+      "from": "North",
+      "to": "South",
+      "capacity": 10
+    },
+    {
+      "id": "snr",
+      "from": "South",
+      "to": "North",
+      "capacity": 4
+    },
+    {
+      "id": "nm",
+      "from": "North",
+      "to": "Mill",
+      "capacity": 12
+    },
+    {
+      "id": "ms",
+      "from": "Mill",
+      "to": "South",
+      "capacity": 9
+    },
+    {
+      "id": "sd",
+      "from": "South",
+      "to": "Dock",
+      "capacity": 14
+    },
+    {
+      "id": "dm",
+      "from": "Dock",
+      "to": "Mill",
+      "capacity": 7
+    },
+    {
+      "id": "mt",
+      "from": "Mill",
+      "to": "T",
+      "capacity": 20
+    },
+    {
+      "id": "dt",
+      "from": "Dock",
+      "to": "T",
+      "capacity": 4
+    }
+  ],
+  "source": "S",
+  "sink": "T"
+}

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cut Current</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="brand"><span>↗</span> CUT CURRENT</a
+      ><span>NETWORK OPTIMIZATION / FIELD WORKBOOK</span
+      ><button id="export">Export evidence ↗</button>
+    </header>
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">FIND THE LIMIT. FOLLOW THE FLOW.</p>
+          <h1>Room to move.</h1>
+        </div>
+        <p>
+          Trace what a network can carry.<br />Find the cut that holds it back.
+        </p>
+      </section>
+      <div class="toolbar">
+        <label
+          >Network
+          <select id="preset">
+            <option value="harbor">Harbor network</option>
+            <option value="reroute">A necessary reversal</option>
+          </select></label
+        ><button id="reset">Load example</button
+        ><button id="undo" disabled>Undo edit</button
+        ><span id="status" role="status"></span>
+      </div>
+      <section class="workspace">
+        <div class="diagram">
+          <div class="graph-head">
+            <span id="step-label">Flow network</span
+            ><label
+              ><input type="checkbox" id="show-residual" /> Cancellation
+              arcs</label
+            >
+          </div>
+          <svg
+            id="graph"
+            viewBox="0 0 900 460"
+            role="group"
+            aria-label="Directed flow network"
+          ></svg>
+          <div class="legend">
+            <span>━━ Original capacity</span
+            ><span class="teal">━━ Augmenting path</span
+            ><span class="rust">┄┄ Cancellation</span
+            ><span>○ Source side of final cut</span>
+          </div>
+          <div class="replay">
+            <button id="back" aria-label="Previous augmentation">←</button
+            ><button id="play">Play</button
+            ><input
+              id="step"
+              type="range"
+              min="0"
+              max="1"
+              value="0"
+              aria-label="Augmentation step"
+            /><button id="next" aria-label="Next augmentation">→</button
+            ><output id="step-count"></output>
+          </div>
+          <p id="path" class="path"></p>
+        </div>
+        <aside>
+          <p class="eyebrow">THE CAPACITY CERTIFICATE</p>
+          <div class="big">
+            <strong id="value">0</strong><span>maximum flow</span>
+          </div>
+          <dl>
+            <div>
+              <dt>Minimum cut</dt>
+              <dd id="cut-value"></dd>
+            </div>
+            <div>
+              <dt>Source side</dt>
+              <dd id="side"></dd>
+            </div>
+            <div>
+              <dt>Augmentations</dt>
+              <dd id="augmentations"></dd>
+            </div>
+            <div>
+              <dt>Current flow</dt>
+              <dd id="current"></dd>
+            </div>
+          </dl>
+          <p id="certificate"></p>
+          <hr />
+          <p class="eyebrow">INSPECT AN EDGE</p>
+          <label>Directed edge<select id="edge"></select></label>
+          <p id="edge-info"></p>
+          <form id="capacity-form">
+            <label
+              >Capacity<input
+                id="capacity"
+                type="number"
+                min="0"
+                max="1000000"
+                step="1"
+                required /></label
+            ><button>Apply capacity</button>
+          </form>
+          <p id="impact" class="muted"></p>
+        </aside>
+      </section>
+      <p id="error" role="alert"></p>
+      <section class="lower">
+        <div>
+          <h2>Where the limit lives.</h2>
+          <p>
+            The final residual search separates source from sink. Every forward
+            edge across this cut is saturated; every original edge crossing back
+            carries zero flow.
+          </p>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Edge</th>
+                  <th>Direction</th>
+                  <th>Final flow / capacity</th>
+                  <th>Cut</th>
+                  <th>Outage loss</th>
+                  <th>+1 gain</th>
+                </tr>
+              </thead>
+              <tbody id="edges"></tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <details>
+            <summary>Edit the network</summary>
+            <p>
+              2–16 named nodes, up to 64 directed edges. Parallel and opposite
+              edges keep separate identities. Integer capacities from 0 to
+              1,000,000.
+            </p>
+            <label
+              >Network JSON<textarea
+                id="editor"
+                spellcheck="false"
+                rows="18"
+              ></textarea>
+            </label>
+            <div class="actions">
+              <button id="apply">Apply network</button
+              ><button id="save">Save network</button
+              ><button id="open">Open JSON</button
+              ><input
+                hidden
+                id="file"
+                type="file"
+                accept=".json,application/json"
+              />
+            </div>
+          </details>
+          <details>
+            <summary>How to read the replay</summary>
+            <p>
+              Edmonds–Karp chooses a shortest residual path by breadth-first
+              search. Ties follow edge input order. A forward arc uses unused
+              capacity; a backward arc cancels existing flow on that same edge.
+            </p>
+            <p>
+              Each step displays the path just applied and the resulting flows.
+              Optional cancellation arcs show the state after that step. The
+              certificate and sensitivity table describe the completed optimum,
+              even while replaying an earlier step.
+            </p>
+            <p>
+              Outage sets one edge’s capacity to zero. +1 gain increases only
+              that edge by one and resolves the entire network. Being saturated
+              does not imply an upgrade helps.
+            </p>
+            <p>
+              This is a bounded deterministic model, not a live traffic
+              controller. It has no costs, travel times, lower bounds, or
+              multiple commodities. Node positions are illustrative.
+            </p>
+          </details>
+        </div>
+      </section>
+    </main>
+    <footer>
+      Cut Current / A proof at the bottleneck.<span
+        >Local computation · no uploads · integer arithmetic</span
+      >
+    </footer>
+  </body>
+</html>

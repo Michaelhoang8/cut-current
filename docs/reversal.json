@@ -1,0 +1,56 @@
+{
+  "nodes": [
+    "S",
+    "A",
+    "B",
+    "C",
+    "D",
+    "T"
+  ],
+  "edges": [
+    {
+      "id": "sa",
+      "from": "S",
+      "to": "A",
+      "capacity": 1
+    },
+    {
+      "id": "sb",
+      "from": "S",
+      "to": "B",
+      "capacity": 1
+    },
+    {
+      "id": "ac",
+      "from": "A",
+      "to": "C",
+      "capacity": 1
+    },
+    {
+      "id": "ad",
+      "from": "A",
+      "to": "D",
+      "capacity": 1
+    },
+    {
+      "id": "bc",
+      "from": "B",
+      "to": "C",
+      "capacity": 1
+    },
+    {
+      "id": "ct",
+      "from": "C",
+      "to": "T",
+      "capacity": 1
+    },
+    {
+      "id": "dt",
+      "from": "D",
+      "to": "T",
+      "capacity": 1
+    }
+  ],
+  "source": "S",
+  "sink": "T"
+}
