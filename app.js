@@ -249,6 +249,11 @@ function apply(input, remember = true) {
     if (history.length > 30) history.shift();
   }
   result = next;
+  $("preset").value =
+    ["harbor", "reroute"].find(
+      (k) => JSON.stringify(example(k)) === JSON.stringify(result.network),
+    ) || "custom";
+  $("reset").disabled = $("preset").value === "custom";
   impacts = nextImpacts;
   step = 0;
   selected = Math.min(selected, Math.max(0, result.network.edges.length - 1));
@@ -266,6 +271,9 @@ function attempt(fn) {
   }
 }
 $("reset").onclick = () => attempt(() => apply(example($("preset").value)));
+$("preset").onchange = () => {
+  $("reset").disabled = $("preset").value === "custom";
+};
 $("apply").onclick = () =>
   attempt(() => {
     if ($("editor").value.length > 100000)
