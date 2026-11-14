@@ -428,3 +428,305 @@ footer {
     font-size: 48px;
   }
 }
+/* Network canvas and certificate layout. */
+:root {
+  background: #f4f6f4;
+  color: #203a35;
+  --line: #d6dfda;
+  --teal: #20765f;
+  --rust: #b86b37;
+}
+header {
+  padding: 24px 3vw;
+  background: #fff;
+}
+header h1 {
+  font:
+    500 25px Arial,
+    sans-serif;
+  letter-spacing: -1px;
+  margin: 0;
+}
+main {
+  max-width: 1560px;
+  padding: 10px 3vw 35px;
+}
+.toolbar {
+  border-top: 0;
+  padding: 18px 0;
+}
+.workspace {
+  display: block;
+  border: 0;
+  background: none;
+  border-radius: 0;
+  overflow: visible;
+  animation: none;
+}
+.diagram {
+  background: #142e2b;
+  color: #c9ddd5;
+  border: 1px solid #26463f;
+  border-radius: 9px;
+  box-shadow: 0 12px 28px #122e2b12;
+  overflow: hidden;
+}
+.graph-head {
+  padding: 23px 26px;
+  font: 12px monospace;
+  color: #c2ddd0;
+}
+.graph-head input {
+  accent-color: #7be2bb;
+}
+.graph-scroll {
+  overflow: auto;
+}
+#graph {
+  min-width: 760px;
+  max-height: 530px;
+  background-image: radial-gradient(#5b8c7a33 0.8px, transparent 0.8px);
+  background-size: 22px 22px;
+}
+#graph .edge {
+  stroke: #668882;
+  stroke-width: 2.5;
+  transition: stroke-width 0.2s;
+}
+#graph .edge-hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 18;
+}
+#graph .selected {
+  stroke-width: 5;
+}
+#graph .active {
+  stroke: #7be2bb;
+  stroke-width: 4;
+  stroke-dasharray: 10 5;
+  animation: flow 2s linear infinite;
+}
+#graph .cancel {
+  stroke: #efb070;
+  stroke-width: 4;
+  stroke-dasharray: 7 5;
+  animation: flow 2s linear infinite;
+}
+#graph .residual {
+  stroke: #d2ac82;
+  opacity: 0.65;
+}
+#graph .node {
+  fill: #183b34;
+  stroke: #779e8d;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 4px 5px #0003);
+}
+#graph .source-side {
+  fill: #356953;
+  stroke: #a3d1af;
+}
+#graph text {
+  fill: #bcd1c6;
+  stroke: #142e2b;
+  font: 11px monospace;
+  stroke-width: 6px;
+}
+#graph .node-text {
+  fill: #fff;
+  stroke: none;
+  font: 600 14px Arial;
+}
+#graph [role="button"]:focus .edge {
+  stroke: #fff;
+  stroke-width: 5;
+}
+.legend {
+  padding: 18px 26px;
+  color: #95b3a5;
+  border-top: 1px solid #355048;
+}
+.legend .teal {
+  color: #7be2bb;
+}
+.legend .rust {
+  color: #efb070;
+}
+.replay {
+  margin: 10px 26px;
+}
+.replay button {
+  background: #24473e;
+  border-color: #456356;
+  color: #deeee6;
+}
+.replay input {
+  accent-color: #7be2bb;
+}
+.path {
+  color: #a9cdbb;
+  padding: 0 26px;
+}
+.workspace aside {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 26px 30px;
+  margin-top: 22px;
+}
+.certificate-panel {
+  position: relative;
+  padding-right: 25px;
+  border-right: 1px solid var(--line);
+}
+.eyebrow {
+  font: 10px monospace;
+  letter-spacing: 1px;
+  margin: 0 0 15px;
+}
+.big {
+  margin: 0 0 20px;
+}
+.big strong {
+  font: normal 68px/1 monospace;
+  letter-spacing: -5px;
+  color: #20765f;
+}
+dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 25px;
+}
+dl div {
+  display: block;
+  margin: 0;
+}
+dt {
+  font-size: 10px;
+  color: #6c8174;
+}
+dd {
+  text-align: left;
+  max-width: none;
+  font: 14px monospace;
+  margin-top: 7px;
+  overflow-wrap: anywhere;
+}
+#certificate {
+  font-size: 11px;
+  margin: 20px 0 0;
+}
+.edge-inspector select {
+  max-width: 100%;
+}
+#capacity-form {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+}
+#capacity-form label {
+  flex: 1;
+  min-width: 0;
+}
+#capacity-form input {
+  margin-bottom: 0;
+}
+#capacity-form button {
+  width: auto;
+  flex: none;
+  margin-bottom: 0;
+  height: 38px;
+}
+.lower {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+.lower > div {
+  min-width: 0;
+}
+h2 {
+  font: 500 22px Arial;
+  letter-spacing: -0.5px;
+}
+.lower p {
+  font-size: 12px;
+}
+.table-scroll table {
+  font-family: monospace;
+}
+.table-scroll td {
+  padding: 12px 10px;
+}
+tr.cut {
+  background: #e3eee5;
+}
+#error:empty {
+  display: none;
+}
+button {
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -30;
+  }
+}
+@media (max-width: 850px) {
+  .workspace aside {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .certificate-panel {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0 0 24px;
+  }
+  .lower {
+    grid-template-columns: 1fr;
+  }
+  #graph {
+    min-width: 760px;
+  }
+  .toolbar {
+    gap: 8px;
+  }
+  #status {
+    width: 100%;
+    margin: 0;
+  }
+  .graph-head {
+    flex-wrap: wrap;
+  }
+  .workspace aside {
+    padding: 22px;
+  }
+  .big strong {
+    font-size: 60px;
+  }
+  .legend {
+    gap: 12px;
+  }
+  .path {
+    overflow-wrap: anywhere;
+  }
+  .replay {
+    margin: 10px 15px;
+    gap: 6px;
+  }
+  .replay button {
+    padding: 9px 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *:before,
+  *:after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

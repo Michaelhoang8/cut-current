@@ -18,16 +18,37 @@ function node(tag, attrs = {}, text = null) {
   if (text !== null) e.textContent = text;
   return e;
 }
+let drawnResult, drawnStep, drawnResidual;
 function draw() {
+  const residualVisible = $("show-residual").checked;
+  if (
+    drawnResult === result &&
+    drawnStep === step &&
+    drawnResidual === residualVisible
+  ) {
+    for (const group of $("graph").querySelectorAll("[data-edge]")) {
+      group
+        .querySelector(".edge")
+        .classList.toggle("selected", Number(group.dataset.edge) === selected);
+      group.setAttribute(
+        "aria-pressed",
+        String(Number(group.dataset.edge) === selected),
+      );
+    }
+    return;
+  }
+  drawnResult = result;
+  drawnStep = step;
+  drawnResidual = residualVisible;
   const n = result.network,
     s = result.snapshots[step],
     g = $("graph");
   g.replaceChildren();
   const defs = node("defs");
   for (const [id, color] of [
-    ["arrow", "#8fa69b"],
-    ["active-arrow", "#17726d"],
-    ["reverse-arrow", "#b95739"],
+    ["arrow", "#668882"],
+    ["active-arrow", "#7be2bb"],
+    ["reverse-arrow", "#efb070"],
   ]) {
     const m = node("marker", {
       id,
@@ -93,9 +114,12 @@ function draw() {
           : geometry(e.from, e.to, off),
       group = node("g", {
         role: "button",
+        "data-edge": i,
+        "aria-pressed": String(selected === i),
         tabindex: 0,
         "aria-label": `${e.id}: ${e.from} to ${e.to}, flow ${s.flow[i]}, capacity ${e.capacity}`,
       });
+    group.append(node("path", { d: p.d, class: "edge-hit" }));
     const cls = aug ? (aug.direction === -1 ? "cancel" : "active") : "edge";
     group.append(
       node("path", {
@@ -108,7 +132,7 @@ function draw() {
       node(
         "text",
         { x: p.x, y: p.y - 7, "text-anchor": "middle" },
-        `${e.id} ${s.flow[i]}/${e.capacity}`,
+        `${e.id}  ${s.flow[i]} / ${e.capacity}`,
       ),
     );
     const choose = () => {
@@ -218,9 +242,11 @@ function render() {
       const td = document.createElement("td"),
         b = document.createElement("button");
       b.textContent = x.id;
+      b.dataset.edgeRow = i;
       b.onclick = () => {
         selected = i;
         render();
+        $("edges").querySelector(`[data-edge-row="${i}"]`)?.focus();
       };
       td.append(b);
       tr.append(td);

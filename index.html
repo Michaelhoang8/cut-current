@@ -9,20 +9,10 @@
   </head>
   <body>
     <header>
-      <a href="/" class="brand"><span>↗</span> CUT CURRENT</a
-      ><span>NETWORK OPTIMIZATION / FIELD WORKBOOK</span
-      ><button id="export">Export evidence ↗</button>
+      <h1>Cut Current</h1>
+      <button id="export">Export evidence</button>
     </header>
     <main>
-      <section class="intro">
-        <div>
-          <p class="eyebrow">FIND THE LIMIT. FOLLOW THE FLOW.</p>
-          <h1>Room to move.</h1>
-        </div>
-        <p>
-          Trace what a network can carry.<br />Find the cut that holds it back.
-        </p>
-      </section>
       <div class="toolbar">
         <label
           >Network
@@ -44,12 +34,14 @@
               arcs</label
             >
           </div>
-          <svg
-            id="graph"
-            viewBox="0 0 900 460"
-            role="group"
-            aria-label="Directed flow network"
-          ></svg>
+          <div class="graph-scroll">
+            <svg
+              id="graph"
+              viewBox="0 0 900 460"
+              role="group"
+              aria-label="Directed flow network"
+            ></svg>
+          </div>
           <div class="legend">
             <span>━━ Original capacity</span
             ><span class="teal">━━ Augmenting path</span
@@ -72,51 +64,54 @@
           <p id="path" class="path"></p>
         </div>
         <aside>
-          <p class="eyebrow">THE CAPACITY CERTIFICATE</p>
-          <div class="big">
-            <strong id="value">0</strong><span>maximum flow</span>
+          <div class="certificate-panel">
+            <p class="eyebrow">FINAL CERTIFICATE</p>
+            <div class="big">
+              <strong id="value">0</strong><span>maximum flow</span>
+            </div>
+            <dl>
+              <div>
+                <dt>Minimum cut</dt>
+                <dd id="cut-value"></dd>
+              </div>
+              <div>
+                <dt>Source side</dt>
+                <dd id="side"></dd>
+              </div>
+              <div>
+                <dt>Augmentations</dt>
+                <dd id="augmentations"></dd>
+              </div>
+              <div>
+                <dt>Current flow</dt>
+                <dd id="current"></dd>
+              </div>
+            </dl>
+            <p id="certificate"></p>
           </div>
-          <dl>
-            <div>
-              <dt>Minimum cut</dt>
-              <dd id="cut-value"></dd>
-            </div>
-            <div>
-              <dt>Source side</dt>
-              <dd id="side"></dd>
-            </div>
-            <div>
-              <dt>Augmentations</dt>
-              <dd id="augmentations"></dd>
-            </div>
-            <div>
-              <dt>Current flow</dt>
-              <dd id="current"></dd>
-            </div>
-          </dl>
-          <p id="certificate"></p>
-          <hr />
-          <p class="eyebrow">INSPECT AN EDGE</p>
-          <label>Directed edge<select id="edge"></select></label>
-          <p id="edge-info"></p>
-          <form id="capacity-form">
-            <label
-              >Capacity<input
-                id="capacity"
-                type="number"
-                min="0"
-                max="1000000"
-                step="1"
-                required /></label
-            ><button>Apply capacity</button>
-          </form>
-          <p id="impact" class="muted"></p>
+          <div class="edge-inspector">
+            <p class="eyebrow">EDGE INSPECTOR</p>
+            <label>Directed edge<select id="edge"></select></label>
+            <p id="edge-info"></p>
+            <form id="capacity-form">
+              <label
+                >Capacity<input
+                  id="capacity"
+                  type="number"
+                  min="0"
+                  max="1000000"
+                  step="1"
+                  required /></label
+              ><button>Apply capacity</button>
+            </form>
+            <p id="impact" class="muted"></p>
+          </div>
         </aside>
       </section>
       <p id="error" role="alert"></p>
       <section class="lower">
         <div>
-          <h2>Where the limit lives.</h2>
+          <h2>Cut and sensitivity</h2>
           <p>
             The final residual search separates source from sink. Every forward
             edge across this cut is saturated; every original edge crossing back
@@ -192,10 +187,5 @@
         </div>
       </section>
     </main>
-    <footer>
-      Cut Current / A proof at the bottleneck.<span
-        >Local computation · no uploads · integer arithmetic</span
-      >
-    </footer>
   </body>
 </html>

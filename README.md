@@ -2,6 +2,8 @@
 
 An interactive directed-network flow workbook. Replay shortest augmenting paths, inspect cancellation arcs, change capacities, and verify the minimum cut that certifies the optimum.
 
+The full-width network canvas uses moving dashes for the augmentation currently being replayed, with distinct cancellation paths and a final certificate below. Edge inspection preserves keyboard focus, and reduced-motion preferences stop the path animation.
+
 ![Network flow workbench](docs/workbench.png)
 
 ## Run
